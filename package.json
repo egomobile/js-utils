@@ -8,7 +8,7 @@
     },
     "scripts": {
         "build": "del ./lib && tsc",
-        "doc": "del ./doc && typedoc --out ./doc ./src",
+        "docs:generate": "del ./docs && typedoc --out ./docs ./src",
         "lint": "eslint -c .eslintrc.js --ext .ts src",
         "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src",
         "sandbox": "nodemon --watch './sandbox.ts' --exec node -r ts-node/register --inspect=0.0.0.0:9229 ./sandbox.ts",
