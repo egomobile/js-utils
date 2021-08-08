@@ -1,6 +1,6 @@
 {
     "name": "@egomobile/js-utils",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Library of utilities, which are compatible with any important JavaScript environment and that do not need external dependencies.",
     "main": "lib/index.js",
     "engines": {
