@@ -56,6 +56,10 @@ export function throwIfNoNumber(val: unknown, paramName = 'val'): number {
   * @param {number} num The input value.
   * @param {Nullable<HowToTransformNumber>} howToTransform The way, how to transform the input value.
   *
+  * @returns {number} The valid number.
+  *
+  * @throws {TypeError} num is invalid
+  *
   * @example
   * ```
   * transformNumber(1)  // 1
@@ -78,10 +82,6 @@ export function throwIfNoNumber(val: unknown, paramName = 'val'): number {
   * transformNumber(4.5, 'round')  // 5
   * transformNumber(4.6, 'round')  // 5
   * ```
-  *
-  * @returns {number} The valid number.
-  *
-  * @throws {TypeError} num is invalid
   */
 export function transformNumber(num: number, howToTransform: Nullable<HowToTransformNumber>): number {
     const result = throwIfNoNumber(num, 'num');

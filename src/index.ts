@@ -18,10 +18,16 @@ export * from './numbers';
 export * from './strings';
 export * from './types';
 
+import { toStringSafe } from './strings';
+
+const truelyValues = ['true', '1', 'yes', 'y'];
+
 /**
  * Checks if a value is (null) or (null).
  *
  * @param {unknown} val The input value to check.
+ *
+ * @returns {boolean} (true), if val is (null) or (undefined).
  *
  * @example
  * ```
@@ -32,10 +38,32 @@ export * from './types';
  * isNil('')  // (false)
  * isNil(false)  // (false)
  * ```
- *
- * @returns {boolean} (true), if val is (null) or (undefined).
  */
 export function isNil(val: unknown): val is (null | undefined) {
     return val === null ||
         typeof val === 'undefined';
+}
+
+/**
+ * Checks if an input value represents a "truely" value.
+ *
+ * @param {unknown} val The input value to check.
+ *
+ * @returns {boolean} If (true), input value "truely".
+ *
+ * @example
+ * ```
+ * // return (true)
+ * isTruely(1)
+ * isTruely('1')
+ * isTruely(true)
+ * isTruely('true')
+ * isTruely('y')
+ * isTruely('yes')
+ * ```
+ */
+export function isTruely(val: unknown): boolean {
+    return truelyValues.includes(
+        toStringSafe(val).toLowerCase().trim()
+    );
 }

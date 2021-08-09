@@ -28,6 +28,8 @@ export const earthRadius = 6371;
  * @param {IGeoLocation} loc2 The end location.
  * @param {Nilable<HowToTransformNumber>} [howToTransform] The way how to transform the result.
  *
+ * @returns {number} The distance in km.
+ *
  * @example
  * ```
  * const egoCampus = { latitude: 50.78209010114186, longitude: 6.047160498172991 };
@@ -40,8 +42,6 @@ export const earthRadius = 6371;
  * calcDistance(egoCampus, egoFactory, 'floor')  // 5
  * calcDistance(egoCampus, egoFactory, 'round')  // 6
  * ```
- *
- * @returns {number} The distance in km.
  */
 export function calcDistance(
     loc1: IGeoLocation, loc2: IGeoLocation,
@@ -73,6 +73,8 @@ export function calcDistance(
  *
  * @param {number} deg The input value in degrees.
  *
+ * @returns {number} The output value in radian.
+ *
  * @example
  * ```
  * deg2rad(0)  // 0
@@ -81,8 +83,6 @@ export function calcDistance(
  * deg2rad(270)  // 4.71238898038469
  * deg2rad(360)  // 6.283185307179586
  * ```
- *
- * @returns {number} The output value in radian.
  */
 export function deg2rad(deg: number): number {
     throwIfNoNumber(deg, 'deg');
@@ -97,6 +97,8 @@ export function deg2rad(deg: number): number {
  * @param {WithEmptyPropsAndValues<IGeoLocation>} loc1 The start location.
  * @param {WithEmptyPropsAndValues<IGeoLocation>} loc2 The end location.
  * @param {HowToTransformNumber} [howToTransform] The way how to transform the result.
+ *
+ * @returns {Nullable<number>} The distance in km or (null) if not enough, valid input data.
  *
  * @example
  * ```
@@ -117,8 +119,6 @@ export function deg2rad(deg: number): number {
  * tryCalcDistance(egoCampus, undefined)  // (null)
  * tryCalcDistance(undefined, egoCampus)  // (null)
  * ```
- *
- * @returns {Nullable<number>} The distance in km or (null) if not enough, valid input data.
  */
 export function tryCalcDistance(
     loc1: WithEmptyPropsAndValues<IGeoLocation>, loc2: WithEmptyPropsAndValues<IGeoLocation>,

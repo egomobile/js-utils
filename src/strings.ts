@@ -21,6 +21,8 @@
  * @param {unknown} val The input value to check.
  * @param {string} [defaultValue] The custom default value.
  *
+ * @returns {string} The input value as string.
+ *
  * @example
  * ```
  * class TestClass {
@@ -63,8 +65,6 @@
  * toStringSafe(obj)  // '!!!BAZZZ!!!'
  * toStringSafe(obj, 'Barbara!')  // '!!!BAZZZ!!!'
  * ```
- *
- * @returns {string} The input value as string.
  */
 export function toStringSafe(val: any, defaultValue: string = ''): string {
     if (typeof val === 'string') {
