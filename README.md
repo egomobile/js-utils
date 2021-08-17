@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@egomobile/js-utils.svg)](https://www.npmjs.com/package/@egomobile/js-utils)
+[![npm](https://img.shields.io/npm/v/@egomobile/js-utils.svg)](https://www.npmjs.com/package/@egomobile/js-utils) [![last build](https://img.shields.io/github/workflow/status/egomobile/js-utils/Publish)](https://github.com/egomobile/js-utils/actions?query=workflow%3APublish) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/egomobile/js-utils/pulls)
 
 # @egomobile/js-utils
 
