@@ -1,6 +1,6 @@
 # Change Log (@egomobile/js-utils)
 
-## 0.3.0
+## 0.3.1
 
 - add `asAsync()` function
 

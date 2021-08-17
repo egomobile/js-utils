@@ -42,11 +42,7 @@ const truelyValues = ['true', '1', 'yes', 'y'];
  *
  * @returns {AsyncFunc<TResult>} The result with the async function.
  */
-export function asAsync<TResult extends any = any>(func: () => TResult): AsyncFunc<TResult>;
-export function asAsync<TResult extends any = any>(func: () => PromiseLike<TResult>): AsyncFunc<TResult>;
-export function asAsync<TResult extends any = any>(
-    func: Function
-): AsyncFunc<TResult> {
+export function asAsync<TResult extends any = any>(func: (...args: any[]) => any): AsyncFunc<TResult> {
     if (typeof func !== 'function') {
         throw new TypeError('func is no function');
     }
@@ -56,9 +52,7 @@ export function asAsync<TResult extends any = any>(
     }
 
     // eslint-disable-next-line require-await
-    return (async function (...args: any[]) {
-        return func(...args);
-    }) as AsyncFunc<TResult>;
+    return (async (...args: any[]) => func(...args)) as AsyncFunc<TResult>;
 }
 
 /**
