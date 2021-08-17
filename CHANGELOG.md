@@ -1,9 +1,9 @@
 # Change Log (@egomobile/js-utils)
 
-## 0.2.0
+## 0.2.1
 
-* add `isTruely()` function
+- add `isTruely()` function
 
 ## 0.1.3
 
-* initial release
+- initial release

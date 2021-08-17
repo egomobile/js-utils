@@ -1,6 +1,6 @@
 {
     "name": "@egomobile/js-utils",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Library of utilities, which are compatible with any important JavaScript environment and that do not need external dependencies.",
     "main": "lib/index.js",
     "engines": {
@@ -28,7 +28,23 @@
         "type": "git",
         "url": "git+https://github.com/egomobile/js-utils.git"
     },
-    "keywords": [],
+    "keywords": [
+        "utils",
+        "tools",
+        "helpers",
+        "javascript",
+        "js",
+        "browser",
+        "node",
+        "react",
+        "vue",
+        "ego",
+        "frontend",
+        "ui",
+        "user interface",
+        "server",
+        "backend"
+    ],
     "author": "Next.e.GO Mobile SE, Aachen, Germany",
     "license": "LGPL-3.0",
     "files": [
@@ -49,7 +65,7 @@
         "eslint-config-ego": "^0.15.0",
         "jest": "^27.0.6",
         "nodemon": "^2.0.12",
-        "ts-jest": "^27.0.4",
+        "ts-jest": "^27.0.5",
         "ts-node": "^10.2.0",
         "tslint": "^6.1.3",
         "typedoc": "^0.21.5",
