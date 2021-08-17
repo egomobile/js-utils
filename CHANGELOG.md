@@ -1,5 +1,9 @@
 # Change Log (@egomobile/js-utils)
 
+## 0.3.0
+
+- add `asAsync()` function
+
 ## 0.2.1
 
 - add `isTruely()` function

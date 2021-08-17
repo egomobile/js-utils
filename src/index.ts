@@ -13,14 +13,53 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-export * from './geo';
-export * from './numbers';
-export * from './strings';
-export * from './types';
-
 import { toStringSafe } from './strings';
 
+/**
+ * A generic, async function.
+ *
+ * @param {any[]} [args] One or more arguments for the function.
+ *
+ * @returns {Promise<TResult>} The promise with the result of the function.
+ */
+export type AsyncFunc<TResult extends any = any> = (...args: any[]) => Promise<TResult>;
+
 const truelyValues = ['true', '1', 'yes', 'y'];
+
+/**
+ * Keeps sure to returns an async function.
+ *
+ * @param {Function} func The input value.
+ *
+ * @example
+ * ```
+ * const func1 = asAsync((a: number, b: number) => a + b)
+ * const func2 = asAsync(async (x: string, y: number) => x + y)
+ *
+ * const sum1 = await func1(5979, 23979)  // 29958
+ * const sum2 = await func2('TM', 5979)  // 'TM5979'
+ * ```
+ *
+ * @returns {AsyncFunc<TResult>} The result with the async function.
+ */
+export function asAsync<TResult extends any = any>(func: () => TResult): AsyncFunc<TResult>;
+export function asAsync<TResult extends any = any>(func: () => PromiseLike<TResult>): AsyncFunc<TResult>;
+export function asAsync<TResult extends any = any>(
+    func: Function
+): AsyncFunc<TResult> {
+    if (typeof func !== 'function') {
+        throw new TypeError('func is no function');
+    }
+
+    if (func.constructor.name === 'AsyncFunction') {
+        return func as AsyncFunc<TResult>;
+    }
+
+    // eslint-disable-next-line require-await
+    return (async function (...args: any[]) {
+        return func(...args);
+    }) as AsyncFunc<TResult>;
+}
 
 /**
  * Checks if a value is (null) or (null).
@@ -67,3 +106,8 @@ export function isTruely(val: unknown): boolean {
         toStringSafe(val).toLowerCase().trim()
     );
 }
+
+export * from './geo';
+export * from './numbers';
+export * from './strings';
+export * from './types';

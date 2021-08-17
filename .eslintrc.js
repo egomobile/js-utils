@@ -8,5 +8,6 @@ module.exports = {
     },
     "rules": {
         // Additional, per-project rules...
+        "no-redeclare": ["off"]
     }
 }
