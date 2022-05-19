@@ -1,5 +1,11 @@
 # Change Log (@egomobile/js-utils)
 
+## 0.4.0
+
+- require at least [Node 14](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md) to build now
+- using new [ESLint settings](https://github.com/egomobile/eslint-config-ego)
+- `npm update`s
+
 ## 0.3.2
 
 - add `asAsync()` function

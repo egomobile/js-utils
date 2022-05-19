@@ -13,10 +13,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { deg2rad } from '../geo';
+import { deg2rad } from "../geo";
 
-describe('deg2rad() function', () => {
-    it.each([0, 10, 180, 270, 360])('should not thrown an TypeError, if input value is valid', (deg) => {
+describe("deg2rad() function", () => {
+    it.each([0, 10, 180, 270, 360])("should not thrown an TypeError, if input value is valid", (deg) => {
         const expectedValue = deg * (Math.PI / 180);
 
         let value!: number;
@@ -24,58 +24,68 @@ describe('deg2rad() function', () => {
             value = deg2rad(deg);
         }).not.toThrowError(TypeError);
 
-        expect(typeof value).toBe('number');
+        expect(typeof value).toBe("number");
         expect(isNaN(value)).toBe(false);
         expect(value).toBe(expectedValue);
     });
 
-    it.each([0, 10, 180, 270, 360, 'MK+TM'].map(x => String(x)))('should thrown an TypeError, if input value is string', (str: any) => {
+    it.each([0, 10, 180, 270, 360, "MK+TM"].map(x => {
+        return String(x);
+    }))("should thrown an TypeError, if input value is string", (str: any) => {
         let value!: number;
         expect(() => {
             value = deg2rad(str);
         }).toThrowError(TypeError);
 
-        expect(typeof value).not.toBe('number');
+        expect(typeof value).not.toBe("number");
         expect(isNaN(value)).toBe(true);
     });
 
-    it.each([null, undefined, ''].map(x => String(x)))('should thrown an TypeError, if input value is empty value', (val: any) => {
+    it.each([null, undefined, ""].map(x => {
+        return String(x);
+    }))("should thrown an TypeError, if input value is empty value", (val: any) => {
         let value!: number;
         expect(() => {
             value = deg2rad(val);
         }).toThrowError(TypeError);
 
-        expect(typeof value).not.toBe('number');
+        expect(typeof value).not.toBe("number");
         expect(isNaN(value)).toBe(true);
     });
 
-    it.each([true, false].map(x => String(x)))('should thrown an TypeError, if input value is (null) or (undefined)', (val: any) => {
+    it.each([true, false].map(x => {
+        return String(x);
+    }))("should thrown an TypeError, if input value is (null) or (undefined)", (val: any) => {
         let value!: number;
         expect(() => {
             value = deg2rad(val);
         }).toThrowError(TypeError);
 
-        expect(typeof value).not.toBe('number');
+        expect(typeof value).not.toBe("number");
         expect(isNaN(value)).toBe(true);
     });
 
-    it.each([{}, []].map(x => String(x)))('should thrown an TypeError, if input value is object', (val: any) => {
+    it.each([{}, []].map(x => {
+        return String(x);
+    }))("should thrown an TypeError, if input value is object", (val: any) => {
         let value!: number;
         expect(() => {
             value = deg2rad(val);
         }).toThrowError(TypeError);
 
-        expect(typeof value).not.toBe('number');
+        expect(typeof value).not.toBe("number");
         expect(isNaN(value)).toBe(true);
     });
 
-    it.each([Symbol(), Symbol('TEST')].map(x => String(x)))('should thrown an TypeError, if input value is object', (val: any) => {
+    it.each([Symbol(), Symbol("TEST")].map(x => {
+        return String(x);
+    }))("should thrown an TypeError, if input value is object", (val: any) => {
         let value!: number;
         expect(() => {
             value = deg2rad(val);
         }).toThrowError(TypeError);
 
-        expect(typeof value).not.toBe('number');
+        expect(typeof value).not.toBe("number");
         expect(isNaN(value)).toBe(true);
     });
 });

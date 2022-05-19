@@ -66,12 +66,12 @@
  * toStringSafe(obj, 'Barbara!')  // '!!!BAZZZ!!!'
  * ```
  */
-export function toStringSafe(val: any, defaultValue: string = ''): string {
-    if (typeof val === 'string') {
+export function toStringSafe(val: any, defaultValue: string = ""): string {
+    if (typeof val === "string") {
         return val;
     }
 
-    if (!(val === null || typeof val === 'undefined')) {
+    if (!(val === null || typeof val === "undefined")) {
         try {
             if (Array.isArray(val)) {
                 return JSON.stringify(val);
@@ -80,15 +80,16 @@ export function toStringSafe(val: any, defaultValue: string = ''): string {
             if (val instanceof Error) {
                 return `ERROR [${val.name}]: ${val.message}
 
-${val.stack || ''}`;
+${val.stack || ""}`;
             }
 
-            if (typeof val['toString'] === 'function') {
+            if (typeof val["toString"] === "function") {
                 return String(val.toString());
             }
 
             return String(val);
-        } catch { }
+        }
+        catch { }
     }
 
     return defaultValue;

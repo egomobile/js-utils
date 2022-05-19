@@ -13,48 +13,48 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { isNil } from '..';
+import { isNil } from "..";
 
-const symbolValue = Symbol('TEST');
+const symbolValue = Symbol("TEST");
 
 class TestClass {
     toString() {
-        return 'tm+mk';
+        return "tm+mk";
     }
 }
 
 const plainObj = {
     toString() {
-        return 'TM+MK';
+        return "TM+MK";
     }
 };
 
-describe('isNil() function', () => {
-    it.each([null, undefined])('should return (true), if empty value', (emptyValue) => {
+describe("isNil() function", () => {
+    it.each([null, undefined])("should return (true), if empty value", (emptyValue) => {
         expect(isNil(emptyValue)).toBe(true);
     });
 
-    it.each([String(null), String(undefined)])('should return (false), if non empty value', (nonEmptyValue) => {
+    it.each([String(null), String(undefined)])("should return (false), if non empty value", (nonEmptyValue) => {
         expect(isNil(nonEmptyValue)).toBe(false);
     });
 
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])('should return (false), if input is number', (num) => {
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])("should return (false), if input is number", (num) => {
         expect(isNil(num)).toBe(false);
     });
 
-    it.each([true, false])('should return (false), if input is boolean', (bool) => {
+    it.each([true, false])("should return (false), if input is boolean", (bool) => {
         expect(isNil(bool)).toBe(false);
     });
 
-    it.each([symbolValue])('should return string, if input is symbol', (sym) => {
+    it.each([symbolValue])("should return string, if input is symbol", (sym) => {
         expect(isNil(sym)).toBe(false);
     });
 
-    it.each([new TestClass()])('should return string, if input is class object', (obj) => {
+    it.each([new TestClass()])("should return string, if input is class object", (obj) => {
         expect(isNil(obj)).toBe(false);
     });
 
-    it.each([plainObj])('should return string, if input is class object', (obj) => {
+    it.each([plainObj])("should return string, if input is class object", (obj) => {
         expect(isNil(obj)).toBe(false);
     });
 });

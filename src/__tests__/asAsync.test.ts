@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { asAsync, AsyncFunc } from '..';
+import { asAsync, AsyncFunc } from "..";
 
 function func1(a: number, b: number) {
     return a + b;
@@ -25,28 +25,32 @@ async function func2(a: number, b: number) {
     return a + b;
 }
 
-const func3 = (a: number, b: number) => a + b;
+const func3 = (a: number, b: number) => {
+    return a + b;
+};
 
-const func4 = async (a: number, b: number) => a + b;
+const func4 = async (a: number, b: number) => {
+    return a + b;
+};
 
-describe('asAsync() function', () => {
-    it.each([func1, func2, func3, func4])('should return async function, if input is a function', async (f) => {
+describe("asAsync() function", () => {
+    it.each([func1, func2, func3, func4])("should return async function, if input is a function", async (f) => {
         let asyncFunc!: AsyncFunc;
         expect(() => {
             asyncFunc = asAsync(f);
         }).not.toThrow(TypeError);
 
-        expect(typeof asyncFunc).toBe('function');
-        expect(asyncFunc.constructor.name).toBe('AsyncFunction');
+        expect(typeof asyncFunc).toBe("function");
+        expect(asyncFunc.constructor.name).toBe("AsyncFunction");
 
         const sum = await asyncFunc(1, 2);
 
-        expect(typeof sum).toBe('number');
+        expect(typeof sum).toBe("number");
         expect(sum).toBe(3);
     });
 
     it.each([
-        'TM+MK',
+        "TM+MK",
         {},
         [],
         5979,
@@ -54,13 +58,13 @@ describe('asAsync() function', () => {
         false,
         null,
         undefined
-    ])('should throw a TypeError, if input is not a function', async (val) => {
+    ])("should throw a TypeError, if input is not a function", async (val) => {
         let noAsyncFunc!: any;
         expect(() => {
             noAsyncFunc = asAsync(val as any);
         }).toThrow(TypeError);
 
-        expect(typeof noAsyncFunc).not.toBe('function');
-        expect(noAsyncFunc?.constructor?.name).not.toBe('AsyncFunction');
+        expect(typeof noAsyncFunc).not.toBe("function");
+        expect(noAsyncFunc?.constructor?.name).not.toBe("AsyncFunction");
     });
 });
