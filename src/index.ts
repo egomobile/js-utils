@@ -14,6 +14,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import { toStringSafe } from "./strings";
+import type { Nilable } from "./types";
 
 /**
  * A generic, async function.
@@ -23,6 +24,20 @@ import { toStringSafe } from "./strings";
  * @returns {Promise<TResult>} The promise with the result of the function.
  */
 export type AsyncFunc<TResult extends any = any> = (...args: any[]) => Promise<TResult>;
+
+/**
+ * Custom options for 'toJSONValue()'.
+ */
+export interface IToJSONValueOptions {
+    /**
+     * The custom value selector.
+     */
+    selector?: Nilable<(input: any) => any>;
+    /**
+     * Execute functions and use their results as the values. Default: (false).
+     */
+    useFunctionsAsGetters?: boolean;
+}
 
 const truelyValues = ["true", "1", "yes", "y"];
 
@@ -74,9 +89,9 @@ export function asAsync<TResult extends any = any>(func: (...args: any[]) => any
  * isNil(false)  // (false)
  * ```
  */
-export function isNil(val: unknown): val is (null | undefined) {
-    return val === null ||
-        typeof val === "undefined";
+export function isNil(val: unknown): val is (null | typeof undefined) {
+    return typeof val === "undefined" ||
+        val === null;
 }
 
 /**
@@ -103,7 +118,113 @@ export function isTruely(val: unknown): boolean {
     );
 }
 
+/**
+ * Converts an input value to a serializable one, if needed.
+ *
+ * @example
+ * ```
+ * // no conversion
+ * toJSONValue(1)
+ * toJSONValue("2")
+ * toJSONValue(true)
+ * toJSONValue(null)
+ * toJSONValue(undefined)
+ *
+ * // {
+ * //   "a": 11,
+ * //   "c": "22",
+ * //   "e": null,
+ * //   "f": false,
+ * //   "g": "123",
+ * //   "i": "1979-09-05T23:09:00.079Z",
+ * //   "j": [111, null, "222", undefined, true]
+ * // }
+ * toJSONValue({
+ *   "a": 11,
+ *   "b": Symbol("b"),
+ *   "c": "22",
+ *   "d": function() { },
+ *   "e": null,
+ *   "f": false,
+ *   "g": BigInt(123),
+ *   "h": undefined,
+ *   "i": new Date(305420940079),
+ *   "j": [111, null, "222", undefined, true]
+ * })
+ * ```
+ *
+ * @param {any} value The input value.
+ * @param {Nilable<IToJSONValueOptions>} [options] The custom options.
+ *
+ * @returns {TResult} The output value.
+ */
+export function toJSONValue<TResult extends any = any>(
+    value: any,
+    options?: Nilable<IToJSONValueOptions>
+): TResult {
+    if (!isNil(options?.selector)) {
+        if (typeof options!.selector !== "function") {
+            throw new TypeError("options.selector must be of type function");
+        }
+    }
+
+    return toJSONValueInner(0, value, options ?? {});
+}
+
+function toJSONValueInner(
+    level: number,
+    val: any,
+    options: IToJSONValueOptions
+): any {
+    const selector = options.selector ??
+        ((input) => {
+            return input;
+        });
+    const shouldUseFunctionsAsGetters = !!options.useFunctionsAsGetters;
+
+    const inputValue = selector(val);
+
+    if (!inputValue) {
+        return inputValue;
+    }
+
+    const copyOfValue: any = {};
+
+    for (const [prop, objValue] of Object.entries<any>(inputValue)) {
+        const propValue = selector(objValue);
+
+        if (propValue instanceof Date) {
+            copyOfValue[prop] = (propValue as Date).toISOString();
+        }
+        else if (Array.isArray(propValue)) {
+            copyOfValue[prop] = propValue.map((x) => {
+                return toJSONValueInner(level + 1, x, options);
+            });
+        }
+        else if (["object"].includes(typeof propValue)) {
+            copyOfValue[prop] = toJSONValueInner(level + 1, propValue, options);
+        }
+        else if (["bigint"].includes(typeof propValue)) {
+            copyOfValue[prop] = toStringSafe(propValue);
+        }
+        else if (typeof propValue === "function") {
+            if (shouldUseFunctionsAsGetters) {
+                copyOfValue[prop] = propValue();
+            }
+        }
+        else if (
+            !["symbol", "undefined"].includes(typeof propValue)
+        ) {
+            // only if no symbol or undefined
+            copyOfValue[prop] = propValue;
+        }
+    }
+
+    return copyOfValue;
+}
+
 export * from "./geo";
+export * from "./http";
 export * from "./numbers";
 export * from "./strings";
 export * from "./types";

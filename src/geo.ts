@@ -95,6 +95,28 @@ export function deg2rad(deg: number): number {
 }
 
 /**
+ * Helper function converting radian to degrees.
+ *
+ * @param {number} rad The input value in radian.
+ *
+ * @returns {number} The output value in degrees.
+ *
+ * @example
+ * ```
+ * rad2deg(0)  // 0
+ * rad2deg(1)  // 57.29577951308232
+ * rad2deg(2)  // 114.59155902616465
+ * rad2deg(3)  // 171.88733853924697
+ * rad2deg(4)  // 229.1831180523293
+ * ```
+ */
+export function rad2deg(rad: number): number {
+    throwIfNoNumber(rad, "rad");
+
+    return (rad * 180) / Math.PI;
+}
+
+/**
  * Tries to calculates the distance between two geo coordinates in kilometers.
  * If not enough valid data is submitted, (null) is returned.
  *

@@ -14,6 +14,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * How to transform a number.
+ */
+export type HowToTransformNumber = "ceil" | "floor" | "round";
+
+/**
  * A geo location.
  */
 export interface IGeoLocation {
@@ -26,11 +31,6 @@ export interface IGeoLocation {
      */
     longitude: number;
 }
-
-/**
- * How to transform a number.
- */
-export type HowToTransformNumber = "ceil" | "floor" | "round";
 
 /**
  * A value, that can also be (undefined).
@@ -50,11 +50,11 @@ export type Nullable<T> = T | null;
 /**
  * A type with empty properties and values (null / undefined, e.g.).
  */
-export type WithEmptyPropsAndValues<T> = Nilable<WillNullableProps<Partial<T>>>;
+export type WithEmptyPropsAndValues<T> = Nilable<WithNullableProps<Partial<T>>>;
 
 /**
  * An object with properties, which can also be (null),
  */
-export type WillNullableProps<T> = {
+export type WithNullableProps<T> = {
     [P in keyof T]: Nullable<T[P]>;
 };
