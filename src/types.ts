@@ -30,7 +30,7 @@ export interface IGeoLocation {
 /**
  * How to transform a number.
  */
-export type HowToTransformNumber = 'ceil' | 'floor' | 'round';
+export type HowToTransformNumber = "ceil" | "floor" | "round";
 
 /**
  * A value, that can also be (undefined).

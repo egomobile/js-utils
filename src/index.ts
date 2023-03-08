@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { toStringSafe } from './strings';
+import { toStringSafe } from "./strings";
 
 /**
  * A generic, async function.
@@ -24,7 +24,7 @@ import { toStringSafe } from './strings';
  */
 export type AsyncFunc<TResult extends any = any> = (...args: any[]) => Promise<TResult>;
 
-const truelyValues = ['true', '1', 'yes', 'y'];
+const truelyValues = ["true", "1", "yes", "y"];
 
 /**
  * Keeps sure to returns an async function.
@@ -43,16 +43,18 @@ const truelyValues = ['true', '1', 'yes', 'y'];
  * @returns {AsyncFunc<TResult>} The result with the async function.
  */
 export function asAsync<TResult extends any = any>(func: (...args: any[]) => any): AsyncFunc<TResult> {
-    if (typeof func !== 'function') {
-        throw new TypeError('func is no function');
+    if (typeof func !== "function") {
+        throw new TypeError("func is no function");
     }
 
-    if (func.constructor.name === 'AsyncFunction') {
+    if (func.constructor.name === "AsyncFunction") {
         return func as AsyncFunc<TResult>;
     }
 
     // eslint-disable-next-line require-await
-    return (async (...args: any[]) => func(...args)) as AsyncFunc<TResult>;
+    return (async (...args: any[]) => {
+        return func(...args);
+    }) as AsyncFunc<TResult>;
 }
 
 /**
@@ -74,7 +76,7 @@ export function asAsync<TResult extends any = any>(func: (...args: any[]) => any
  */
 export function isNil(val: unknown): val is (null | undefined) {
     return val === null ||
-        typeof val === 'undefined';
+        typeof val === "undefined";
 }
 
 /**
@@ -101,7 +103,7 @@ export function isTruely(val: unknown): boolean {
     );
 }
 
-export * from './geo';
-export * from './numbers';
-export * from './strings';
-export * from './types';
+export * from "./geo";
+export * from "./numbers";
+export * from "./strings";
+export * from "./types";

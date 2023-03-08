@@ -13,10 +13,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import type { HowToTransformNumber, IGeoLocation, Nilable, Nullable, WithEmptyPropsAndValues } from './types';
+import type { HowToTransformNumber, IGeoLocation, Nilable, Nullable, WithEmptyPropsAndValues } from "./types";
 
-const throwIfNoNumber = (n: number, pn: string) => require('./numbers').throwIfNoNumber(n, pn);
-const transformNumber = (n: number, htt: Nilable<HowToTransformNumber>) => require('./numbers').transformNumber(n, htt);
+const throwIfNoNumber = (n: number, pn: string) => {
+    return require("./numbers").throwIfNoNumber(n, pn);
+};
+const transformNumber = (n: number, htt: Nilable<HowToTransformNumber>) => {
+    return require("./numbers").transformNumber(n, htt);
+};
 
 // the Earth radius in km
 export const earthRadius = 6371;
@@ -47,10 +51,10 @@ export function calcDistance(
     loc1: IGeoLocation, loc2: IGeoLocation,
     howToTransform?: Nilable<HowToTransformNumber>
 ): number {
-    const lat1 = throwIfNoNumber(loc1?.latitude, 'loc1.latitude');
-    const lng1 = throwIfNoNumber(loc1?.longitude, 'loc1.longitude');
-    const lat2 = throwIfNoNumber(loc2?.latitude, 'loc2.latitude');
-    const lng2 = throwIfNoNumber(loc2?.longitude, 'loc2.longitude');
+    const lat1 = throwIfNoNumber(loc1?.latitude, "loc1.latitude");
+    const lng1 = throwIfNoNumber(loc1?.longitude, "loc1.longitude");
+    const lat2 = throwIfNoNumber(loc2?.latitude, "loc2.latitude");
+    const lng2 = throwIfNoNumber(loc2?.longitude, "loc2.longitude");
 
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lng2 - lng1);
@@ -85,7 +89,7 @@ export function calcDistance(
  * ```
  */
 export function deg2rad(deg: number): number {
-    throwIfNoNumber(deg, 'deg');
+    throwIfNoNumber(deg, "deg");
 
     return deg * (Math.PI / 180);
 }
@@ -130,7 +134,9 @@ export function tryCalcDistance(
     ];
 
     if (valuesToCheck.every(
-        num => typeof num === 'number' && !isNaN(num))
+        num => {
+            return typeof num === "number" && !isNaN(num);
+        })
     ) {
         // every value must be a valid number
         return calcDistance(loc1 as IGeoLocation, loc2 as IGeoLocation, howToTransform);

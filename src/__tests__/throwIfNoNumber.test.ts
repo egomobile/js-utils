@@ -13,67 +13,77 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { throwIfNoNumber } from '../numbers';
+import { throwIfNoNumber } from "../numbers";
 
-describe('throwIfNoNumber.test() function', () => {
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])('should return valid number, if input is number', (num) => {
+describe("throwIfNoNumber.test() function", () => {
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])("should return valid number, if input is number", (num) => {
         let validNumber!: number;
         expect(() => {
             validNumber = throwIfNoNumber(num);
         }).not.toThrowError();
 
-        expect(typeof validNumber).toBe('number');
+        expect(typeof validNumber).toBe("number");
         expect(validNumber).toBe(num);
         expect(isNaN(validNumber)).toBe(false);
     });
 
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => String(x)))('should throw a TypeError, if input is not a number', (str) => {
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => {
+        return String(x);
+    }))("should throw a TypeError, if input is not a number", (str) => {
         let num!: number;
         expect(() => {
             num = throwIfNoNumber(str);
         }).toThrowError(TypeError);
 
-        expect(typeof num).not.toBe('number');
+        expect(typeof num).not.toBe("number");
         expect(isNaN(num)).toBe(true);
     });
 
-    it.each([null, undefined, ''].map(x => String(x)))('should throw a TypeError, if input is an empty value', (val) => {
+    it.each([null, undefined, ""].map(x => {
+        return String(x);
+    }))("should throw a TypeError, if input is an empty value", (val) => {
         let num!: number;
         expect(() => {
             num = throwIfNoNumber(val);
         }).toThrowError(TypeError);
 
-        expect(typeof num).not.toBe('number');
+        expect(typeof num).not.toBe("number");
         expect(isNaN(num)).toBe(true);
     });
 
-    it.each([true, false].map(x => String(x)))('should throw a TypeError, if input is a boolean', (val) => {
+    it.each([true, false].map(x => {
+        return String(x);
+    }))("should throw a TypeError, if input is a boolean", (val) => {
         let num!: number;
         expect(() => {
             num = throwIfNoNumber(val);
         }).toThrowError(TypeError);
 
-        expect(typeof num).not.toBe('number');
+        expect(typeof num).not.toBe("number");
         expect(isNaN(num)).toBe(true);
     });
 
-    it.each([{}, []].map(x => String(x)))('should throw a TypeError, if input is an object', (val) => {
+    it.each([{}, []].map(x => {
+        return String(x);
+    }))("should throw a TypeError, if input is an object", (val) => {
         let num!: number;
         expect(() => {
             num = throwIfNoNumber(val);
         }).toThrowError(TypeError);
 
-        expect(typeof num).not.toBe('number');
+        expect(typeof num).not.toBe("number");
         expect(isNaN(num)).toBe(true);
     });
 
-    it.each([Symbol(), Symbol('TEST')].map(x => String(x)))('should throw a TypeError, if input is a symbol', (val) => {
+    it.each([Symbol(), Symbol("TEST")].map(x => {
+        return String(x);
+    }))("should throw a TypeError, if input is a symbol", (val) => {
         let num!: number;
         expect(() => {
             num = throwIfNoNumber(val);
         }).toThrowError(TypeError);
 
-        expect(typeof num).not.toBe('number');
+        expect(typeof num).not.toBe("number");
         expect(isNaN(num)).toBe(true);
     });
 });

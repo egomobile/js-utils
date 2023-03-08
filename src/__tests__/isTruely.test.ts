@@ -13,16 +13,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { isTruely } from '..';
+import { isTruely } from "..";
 
-describe('isTruely() function', () => {
-    it.each([1, '1', true, 'true', 'y', 'yes'])('should return (true), if truely value', (val) => {
+describe("isTruely() function", () => {
+    it.each([1, "1", true, "true", "y", "yes"])("should return (true), if truely value", (val) => {
         expect(isTruely(val)).toBe(true);
     });
 
     it.each([
-        0, '0', false, 'false', 'n', 'no', 2, 3, 4, 5, 6, 7, 8, 9, null, undefined, {}, []
-    ])('should return (false), if non-truely value', (val) => {
+        0, "0", false, "false", "n", "no", 2, 3, 4, 5, 6, 7, 8, 9, null, undefined, {}, []
+    ])("should return (false), if non-truely value", (val) => {
         expect(isTruely(val)).toBe(false);
     });
 });

@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import type { HowToTransformNumber, Nullable } from './types';
+import type { HowToTransformNumber, Nullable } from "./types";
 
 /**
   * Throws an error, if an input value is no valid number.
@@ -42,8 +42,8 @@ import type { HowToTransformNumber, Nullable } from './types';
   *
   * @throws {TypeError} val is invalid
   */
-export function throwIfNoNumber(val: unknown, paramName = 'val'): number {
-    if (typeof val !== 'number' || isNaN(val)) {
+export function throwIfNoNumber(val: unknown, paramName = "val"): number {
+    if (typeof val !== "number" || isNaN(val)) {
         throw new TypeError(`${paramName} is no valid number`);
     }
 
@@ -84,15 +84,19 @@ export function throwIfNoNumber(val: unknown, paramName = 'val'): number {
   * ```
   */
 export function transformNumber(num: number, howToTransform: Nullable<HowToTransformNumber>): number {
-    const result = throwIfNoNumber(num, 'num');
+    const result = throwIfNoNumber(num, "num");
 
-    let transformer = (n: number) => n;
+    let transformer = (n: number) => {
+        return n;
+    };
 
-    if (howToTransform === 'ceil') {
+    if (howToTransform === "ceil") {
         transformer = Math.ceil;
-    } else if (howToTransform === 'floor') {
+    }
+    else if (howToTransform === "floor") {
         transformer = Math.floor;
-    } else if (howToTransform === 'round') {
+    }
+    else if (howToTransform === "round") {
         transformer = Math.round;
     }
 
