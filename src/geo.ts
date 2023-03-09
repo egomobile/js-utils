@@ -13,14 +13,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import { throwIfNoNumber, transformNumber } from "./numbers";
 import type { HowToTransformNumber, IGeoLocation, Nilable, Nullable, WithEmptyPropsAndValues } from "./types";
-
-const throwIfNoNumber = (n: number, pn: string) => {
-    return require("./numbers").throwIfNoNumber(n, pn);
-};
-const transformNumber = (n: number, htt: Nilable<HowToTransformNumber>) => {
-    return require("./numbers").transformNumber(n, htt);
-};
 
 // the Earth radius in km
 export const earthRadius = 6371;
@@ -68,7 +62,7 @@ export function calcDistance(
 
     return transformNumber(
         earthRadius * c,  // distance in km
-        howToTransform
+        howToTransform ?? null
     );
 }
 
