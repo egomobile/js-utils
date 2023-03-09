@@ -1,13 +1,20 @@
 {
     "name": "@egomobile/js-utils",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "description": "Library of utilities, which are compatible with any important JavaScript environment and that do not need external dependencies.",
-    "main": "lib/index.js",
+    "main": "lib/index.cjs.js",
+    "module": "lib/index.esm.js",
+    "browser": "lib/index.umd.js",
+    "types": "lib/index.d.ts",
+    "exports": {
+        "require": "./lib/index.cjs.js",
+        "import": "./lib/index.esm.js"
+    },
     "engines": {
         "node": ">=16.0.0"
     },
     "scripts": {
-        "build": "del ./lib && tsc",
+        "build": "del ./lib && rollup -c rollup.config.mjs",
         "docs:generate": "del ./docs && typedoc --out ./docs ./src",
         "lint": "eslint -c .eslintrc.js --ext .ts src",
         "lint:fix": "eslint --fix -c .eslintrc.js --ext .ts src",
@@ -58,6 +65,9 @@
     ],
     "devDependencies": {
         "@egomobile/tsconfig": "^5.0.0",
+        "@rollup/plugin-commonjs": "24.0.1",
+        "@rollup/plugin-node-resolve": "15.0.1",
+        "@rollup/plugin-typescript": "11.0.0",
         "@types/jest": "29.4.0",
         "babel-jest": "29.5.0",
         "del-cli": "5.0.0",
@@ -65,6 +75,7 @@
         "eslint-config-ego": "^0.17.1",
         "jest": "29.5.0",
         "nodemon": "2.0.21",
+        "rollup": "3.18.0",
         "ts-jest": "29.0.5",
         "ts-node": "10.9.1",
         "typedoc": "0.23.26",
