@@ -1,10 +1,11 @@
 {
     "name": "@egomobile/js-utils",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "Library of utilities, which are compatible with any important JavaScript environment and that do not need external dependencies.",
     "main": "lib/index.cjs.js",
     "module": "lib/index.esm.js",
     "browser": "lib/index.umd.js",
+    "type": "module",
     "types": "lib/index.d.ts",
     "exports": {
         "require": "./lib/index.cjs.js",

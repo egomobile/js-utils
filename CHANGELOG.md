@@ -1,6 +1,6 @@
 # Change Log (@egomobile/js-utils)
 
-## 0.5.1
+## 0.5.2
 
 - separate CommonJS, ESM and UMD support
 - (bug-)fixes
